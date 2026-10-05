@@ -54,21 +54,21 @@
             transition: transform 0.25s ease, background-size 0.25s ease;
         }
 
+        .background.landscape-image {
+            background-size: cover;
+            transform: rotate(90deg) scale(1.16);
+        }
+
+        .background.portrait-image {
+            background-size: cover;
+            transform: scale(1.02) rotate(0deg);
+        }
+
         @media (max-width: 768px) {
             .background {
-                background-size: contain;
+                background-size: cover;
                 background-position: center center;
                 background-repeat: no-repeat;
-                transform: scale(1.02) rotate(0deg);
-            }
-
-            .background.landscape-image {
-                background-size: cover;
-                transform: rotate(90deg) scale(1.15);
-            }
-
-            .background.portrait-image {
-                background-size: contain;
                 transform: scale(1.02) rotate(0deg);
             }
         }
@@ -247,14 +247,9 @@
             const image = new Image();
             image.onload = () => {
                 const isLandscapeImage = image.naturalWidth > image.naturalHeight;
-                const mobilePortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
 
-                backgroundEl.classList.toggle('landscape-image', mobilePortrait && isLandscapeImage);
-                backgroundEl.classList.toggle('portrait-image', mobilePortrait && !isLandscapeImage);
-
-                if (!mobilePortrait) {
-                    backgroundEl.classList.remove('landscape-image', 'portrait-image');
-                }
+                backgroundEl.classList.toggle('landscape-image', isLandscapeImage);
+                backgroundEl.classList.toggle('portrait-image', !isLandscapeImage);
             };
             image.src = imageUrl;
         }
