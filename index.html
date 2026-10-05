@@ -48,8 +48,10 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(0deg);
+            transform-origin: center center;
             filter: saturate(1.1);
+            transition: transform 0.25s ease, background-size 0.25s ease;
         }
 
         @media (max-width: 768px) {
@@ -57,6 +59,17 @@
                 background-size: contain;
                 background-position: center center;
                 background-repeat: no-repeat;
+                transform: scale(1.02) rotate(0deg);
+            }
+
+            .background.landscape-image {
+                background-size: cover;
+                transform: rotate(90deg) scale(1.15);
+            }
+
+            .background.portrait-image {
+                background-size: contain;
+                transform: scale(1.02) rotate(0deg);
             }
         }
 
@@ -215,6 +228,7 @@
         const resetImageBtn = document.getElementById('resetImageBtn');
         const cancelImageBtn = document.getElementById('cancelImageBtn');
 
+        let currentBackgroundUrl = DEFAULT_BACKGROUND;
         let longPressTimer = null;
 
         function getSavedBackground() {
@@ -225,8 +239,26 @@
             }
         }
 
+        function updateBackgroundOrientation(imageUrl) {
+            const image = new Image();
+            image.onload = () => {
+                const isLandscapeImage = image.naturalWidth > image.naturalHeight;
+                const mobilePortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+
+                backgroundEl.classList.toggle('landscape-image', mobilePortrait && isLandscapeImage);
+                backgroundEl.classList.toggle('portrait-image', mobilePortrait && !isLandscapeImage);
+
+                if (!mobilePortrait) {
+                    backgroundEl.classList.remove('landscape-image', 'portrait-image');
+                }
+            };
+            image.src = imageUrl;
+        }
+
         function setBackground(imageUrl) {
+            currentBackgroundUrl = imageUrl;
             backgroundEl.style.backgroundImage = `url("${imageUrl}")`;
+            updateBackgroundOrientation(imageUrl);
         }
 
         function applyBackground() {
@@ -307,6 +339,14 @@
                 longPressTimer = null;
             }
         }
+
+        window.addEventListener('resize', () => {
+            updateBackgroundOrientation(currentBackgroundUrl);
+        });
+
+        window.addEventListener('orientationchange', () => {
+            updateBackgroundOrientation(currentBackgroundUrl);
+        });
 
         chooseImageBtn.addEventListener('click', () => {
             imagePickerEl.click();
