@@ -1,5 +1,11 @@
-const CACHE_NAME = 'jaztimer-cache-v3';
-const APP_SHELL = ['./', './index.html', './manifest.json', './icon.png', './default-background.svg'];
+const CACHE_NAME = 'jaztimer-cache-v4'; // Bumped version to force clear old caches
+const APP_SHELL = [
+    '/JazTimer/',
+    '/JazTimer/index.html',
+    '/JazTimer/manifest.json',
+    '/JazTimer/icon.png',
+    '/JazTimer/default-background.svg'
+];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
@@ -28,7 +34,9 @@ self.addEventListener('fetch', (event) => {
 
     const url = new URL(event.request.url);
     const isNavigationRequest = event.request.mode === 'navigate';
-    const isAppShellRequest = url.origin === self.location.origin && (url.pathname.endsWith('/index.html') || url.pathname === '/');
+    // Adjusted check to properly match the subfolder path structure
+    const isAppShellRequest = url.origin === self.location.origin && 
+        (url.pathname.endsWith('/index.html') || url.pathname === '/JazTimer/' || url.pathname === '/JazTimer');
 
     if (isNavigationRequest || isAppShellRequest) {
         event.respondWith(
@@ -38,7 +46,8 @@ self.addEventListener('fetch', (event) => {
                     caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
                     return networkResponse;
                 })
-                .catch(() => caches.match('./index.html').then((cached) => cached || caches.match('./')))
+                // Fallback uses the specific root subfolder path
+                .catch(() => caches.match('/JazTimer/index.html').then((cached) => cached || caches.match('/JazTimer/')))
         );
         return;
     }
