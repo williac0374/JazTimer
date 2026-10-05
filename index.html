@@ -52,6 +52,14 @@
             filter: saturate(1.1);
         }
 
+        @media (max-width: 768px) {
+            .background {
+                background-size: contain;
+                background-position: center center;
+                background-repeat: no-repeat;
+            }
+        }
+
         .background::after {
             content: "";
             position: absolute;
