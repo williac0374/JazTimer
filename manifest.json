@@ -1,0 +1,18 @@
+{
+    "name": "JazTimer",
+    "short_name": "JazTimer",
+    "description": "Countdown timer till Feb 12th",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f5f2ef",
+    "theme_color": "#4f46e5",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "./icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
