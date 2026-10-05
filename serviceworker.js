@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jaztimer-cache-v2';
+const CACHE_NAME = 'jaztimer-cache-v3';
 const APP_SHELL = ['./', './index.html', './manifest.json', './icon.png', './default-background.svg'];
 
 self.addEventListener('install', (event) => {
