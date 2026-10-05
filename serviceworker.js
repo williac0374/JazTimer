@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jaztimer-cache-v4'; // Bumped version to force clear old caches
+const CACHE_NAME = 'jaztimer-cache-v5'; // Bumped version to force clear old caches
 const APP_SHELL = [
     '/JazTimer/',
     '/JazTimer/index.html',
