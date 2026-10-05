@@ -11,7 +11,7 @@
     <style>
         :root {
             --overlay: rgba(15, 23, 42, 0.45);
-            --panel: rgba(15, 23, 42, 0.0);
+            --panel: rgba(15, 23, 42, 0.42);
             --text: #f8fafc;
             --button-bg: rgba(15, 23, 42, 0.72);
             --button-text: #f8fafc;
@@ -86,10 +86,10 @@
             text-align: center;
             padding: 32px 24px;
             border-radius: 28px;
-            background: var(--panel);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 30px 80px var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: transparent;
+            backdrop-filter: none;
+            box-shadow: none;
+            border: 0;
         }
 
         .eyebrow {
@@ -98,12 +98,14 @@
             letter-spacing: 0.18em;
             text-transform: uppercase;
             opacity: 0.9;
+            text-shadow: 0 2px 8px rgba(15, 23, 42, 0.8);
         }
 
         h1 {
             margin: 0;
             font-size: clamp(1.5rem, 3vw, 2.6rem);
             font-weight: 700;
+            text-shadow: 0 2px 8px rgba(15, 23, 42, 0.8);
         }
 
         .days-block {
@@ -121,12 +123,14 @@
             line-height: 0.95;
             font-weight: 800;
             letter-spacing: -0.07em;
+            text-shadow: 0 3px 12px rgba(15, 23, 42, 0.85);
         }
 
         .label {
             font-size: clamp(1.1rem, 2vw, 1.8rem);
             font-weight: 600;
             opacity: 0.95;
+            text-shadow: 0 2px 8px rgba(15, 23, 42, 0.8);
         }
 
         .image-menu {
